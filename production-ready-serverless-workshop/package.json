@@ -1,0 +1,25 @@
+{
+  "name": "production-ready-serverless-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sls": "serverless"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.834.0",
+    "dotenv": "^8.2.0",
+    "serverless": "^2.22.0",
+    "serverless-export-env": "^1.4.0",
+    "serverless-pseudo-parameters": "^2.5.0"
+  },
+  "dependencies": {
+    "aws4": "^1.11.0",
+    "axios": "^0.21.1",
+    "mustache": "^4.1.0"
+  }
+}
