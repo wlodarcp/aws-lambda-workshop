@@ -12,6 +12,10 @@ provider:
     - Effect: Allow
       Action: dynamodb:scan
       Resource: !GetAtt RestaurantsTable.Arn
+    - Effect: Allow
+      Action: execute-api:Invoke
+      Resource: arn:aws:execute-api:#{AWS::Region}:#{AWS::AccountId}:#{ApiGatewayRestApi}/${self:provider.stage}/GET/restaurants
+
 
 functions:
   get-index:
