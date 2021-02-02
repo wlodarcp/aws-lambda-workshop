@@ -9,11 +9,11 @@ const init = async () => {
         return
     }
 
-    const { credentials, region } = await promisify(awscred.load)()
+    const { credentials } = await promisify(awscred.load)()
 
     process.env.AWS_ACCESS_KEY_ID     = credentials.accessKeyId
     process.env.AWS_SECRET_ACCESS_KEY = credentials.secretAccessKey
-    process.env.AWS_REGION            = region
+    process.env.AWS_REGION            = 'us-east-1'
 
     if (credentials.sessionToken) {
         process.env.AWS_SESSION_TOKEN = credentials.sessionToken
