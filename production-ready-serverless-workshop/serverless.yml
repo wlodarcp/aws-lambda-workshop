@@ -136,6 +136,14 @@ resources:
     CognitoUserPoolServerClientId:
       Value: !Ref ServerCognitoUserPoolClient
 
+    RestApiUrl:
+      Value:
+        Fn::Join:
+          - ""
+          - - https://
+            - !Ref ApiGatewayRestApi
+            - .execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}
+
 
 iamRoleStatements:
   - Effect: Allow
