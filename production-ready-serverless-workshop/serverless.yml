@@ -144,6 +144,11 @@ resources:
             - - https://
               - !Ref ApiGatewayRestApi
               - .execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}
+    EventBus:
+      Type: AWS::Events::EventBus
+      Properties:
+        Name: order_events_${self:provider.stage}
+
   Outputs:
     RestaurantsTableName:
       Value: !Ref RestaurantsTable
@@ -167,6 +172,8 @@ resources:
           - - https://
             - !Ref ApiGatewayRestApi
             - .execute-api.${self:provider.region}.amazonaws.com/${self:provider.stage}
+    EventBusName:
+      Value: !Ref EventBus
 
 
 iamRoleStatements:
