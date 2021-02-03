@@ -3,6 +3,10 @@ service: workshop-${self:custom.name}
 custom:
   name: hpawewlo
   email: pan.wlodarczyk.pawel@gmail.com
+  stage: ${opt:stage, self:provider.stage}
+  logLevel:
+    prod: INFO
+    default: DEBUG
 
 provider:
   name: aws
@@ -10,7 +14,8 @@ provider:
   region: us-east-1
   environment:
     serviceName: ${self:service}
-    stage: ${self:provider.stage}
+    stage: ${self:custom.stage}
+    LOG_LEVEL: ${self:custom.logLevel.${self:custom.stage}, self:custom.logLevel.default}
 
 
 functions:
