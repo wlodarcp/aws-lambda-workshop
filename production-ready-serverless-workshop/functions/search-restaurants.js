@@ -1,7 +1,7 @@
 const DocumentClient = require('aws-sdk/clients/dynamodb').DocumentClient
 const dynamodb = new DocumentClient()
 
-const middy = require('@middy/core')
+const wrap = require('@dazn/lambda-powertools-pattern-basic')
 const ssm = require('@middy/ssm')
 const Log = require('@dazn/lambda-powertools-logger')
 
@@ -25,7 +25,7 @@ const findRestaurantsByTheme = async (theme, count) => {
     return resp.Items
 }
 
-module.exports.handler = middy(async (event, context) => {
+module.exports.handler = wrap(async (event, context) => {
     const req = JSON.parse(event.body)
     const theme = req.theme
     const restaurants = await findRestaurantsByTheme(theme, process.env.defaultResults)

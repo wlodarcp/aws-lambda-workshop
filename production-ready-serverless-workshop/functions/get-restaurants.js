@@ -1,9 +1,9 @@
 const DocumentClient = require('aws-sdk/clients/dynamodb').DocumentClient
 const dynamodb = new DocumentClient()
 
-const middy = require('@middy/core')
 const ssm = require('@middy/ssm')
 const Log = require('@dazn/lambda-powertools-logger')
+const wrap = require('@dazn/lambda-powertools-pattern-basic')
 
 const { serviceName, stage } = process.env
 
@@ -29,7 +29,7 @@ const getRestaurants = async (count) => {
     return resp.Items
 }
 
-module.exports.handler = middy(async (event, context) => {
+module.exports.handler = wrap(async (event, context) => {
     const restaurants = await getRestaurants(process.env.defaultResults)
     const response = {
         statusCode: 200,
