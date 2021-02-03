@@ -30,11 +30,11 @@ module.exports.handler = middy(async (event, context) => {
         statusCode: 200,
         body: JSON.stringify(restaurants)
     }
-
+    console.info(context.secretString)
     return response
 }).use(ssm({
     cache: true,
-    cacheExpiryInMillis: 1 * 60 * 1000, // 1 mins
+    cacheExpiryInMillis: 5 * 60 * 1000, // 5 mins
     names: {
         config: `/${serviceName}/${stage}/search-restaurants/config`
     },
@@ -42,4 +42,12 @@ module.exports.handler = middy(async (event, context) => {
         const config = JSON.parse(process.env.config)
         process.env.defaultResults = config.defaultResults
     }
+})).use(ssm({
+    cache: true,
+    cacheExpiryInMillis: 5 * 60 * 1000, // 5 mins
+    names: {
+        secretString: `/${serviceName}/${stage}/search-restaurants/secretString`
+    },
+    setToContext: true,
+    throwOnFailedCall: true
 }))
