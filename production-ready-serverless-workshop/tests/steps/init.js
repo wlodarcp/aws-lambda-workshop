@@ -2,6 +2,9 @@ const { promisify } = require('util')
 const awscred = require('awscred')
 require('dotenv').config()
 
+process.env.AWS_XRAY_CONTEXT_MISSING = 'LOG_ERROR'
+console.error = jest.fn()
+
 let initialized = false
 
 const init = async () => {
