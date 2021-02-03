@@ -26,6 +26,7 @@
     "serverless-pseudo-parameters": "^2.5.0"
   },
   "dependencies": {
+    "@dazn/lambda-powertools-logger": "^1.28.1",
     "@middy/core": "^1.5.2",
     "@middy/ssm": "^1.5.2",
     "aws4": "^1.11.0",

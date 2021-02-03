@@ -3,6 +3,8 @@ const dynamodb = new DocumentClient()
 
 const middy = require('@middy/core')
 const ssm = require('@middy/ssm')
+const Log = require('@dazn/lambda-powertools-logger')
+
 
 const { serviceName, stage } = process.env
 
@@ -18,7 +20,8 @@ const findRestaurantsByTheme = async (theme, count) => {
     }
 
     const resp = await dynamodb.scan(req).promise()
-    console.log(`found ${resp.Items.length} restaurants`)
+    const restaurntsNumber = resp.Items.length
+    Log.debug(`Restaurants found: `, {restaurntsNumber} )
     return resp.Items
 }
 
@@ -30,7 +33,9 @@ module.exports.handler = middy(async (event, context) => {
         statusCode: 200,
         body: JSON.stringify(restaurants)
     }
-    console.info(context.secretString)
+    const secret = context.secretString
+    Log.debug('Secret info...', { secret })
+
     return response
 }).use(ssm({
     cache: true,
